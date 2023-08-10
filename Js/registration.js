@@ -1,0 +1,1 @@
+let user = new UserController("cria-user");

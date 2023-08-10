@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Animal Registration</title>
+    <link rel="stylesheet" href="dist/css/Form.css">
+</head>
+<body>
+    <div id="formContent">
+        <!-- Tabs Titles -->
+
+        <!-- Icon -->
+        <div class="fadeIn first">
+            <img src="dist/img/Logo.png" id="icon" alt="User Icon" />
+        </div>
+        <div class="box-header with-border">
+            <h3 class="box-title">Criar Animal</h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form role="form"  id="form-animal-create">
+            <div class="box-body">
+
+                <input required type="text" class="form-control" id="inputName" placeholder="Digite o nome do Animal" name="name">
+                <input type="text" class="form-control" id="inputNameF" placeholder="Digite o nome do Pai do Animal"  name="nameP">
+                <input type="text" class="form-control" id="inputNameM" placeholder="Digite o nome da Mãe do Animal"  name="nameM">
+                <label>Gênero</label>
+                <label class="fadeIn fifth" for="inputGenderM" style="color: #124f6d;">
+                    <input type="radio" id="inputGenderM" name="gender" value="Masculino" checked>
+                    Masculino</label>
+                <label class="fadeIn fifth" for="inputGenderF" style="color: #124f6d;">
+                    <input type="radio" id="inputGenderF" name="gender" value="Feminino">
+                    Feminino</label>
+                <input type="number" class="form-control" id="inputEaring" placeholder="Digite o Brinco" name="earing">
+                <label for="imputBirth" id="inputBirthDate">Data de Nascimento</label>
+                <input type="date" class="form-control" id="imputBirth" name="birth">
+                <select class="select" id="selectRacas" name="breed">
+                </select>
+                <br>
+                <label class="container">
+                    <input type="checkbox" id="matriz" checked="checked">Matriz/Reprodutor
+                    <span class="checkmark"></span>
+                </label>
+
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                <button type="button" class="buttonSave" id="saveBTN">Salvar</button>
+            </div>
+        </form>
+    </div>
+
+<script src="controllers/animalController.js"></script>
+
+</body>
+
+    
