@@ -1,4 +1,5 @@
-class Animal {
+const pool = require("./Bd.js")
+ class Animal {
   constructor(
     name,
     idMae,
@@ -6,11 +7,7 @@ class Animal {
     gender,
     birth,
     breed,
-    earing,
-    photo,
-    matrix,
-    peso,
-    preço
+    earing
   ) {
     this._name = name; // Nome do Animal
     this._idMae = idMae; // Nome da Mãe
@@ -19,9 +16,6 @@ class Animal {
     this._birth = birth; //Data de Nascimento
     this._earing = earing; //Brinco do animal
     this._breed = breed; //Raça do Animal
-    this._photo = photo; //Foto do Animal
-    this._matrix = matrix; //Se o Animal é Matriz ou Reprodutor
-    this._register = new Date(); //Data de registro
   }
 
   get register() {
@@ -69,31 +63,31 @@ class Animal {
   }
 
   loadFromJSON(json) {
-    for (let name in json) {
-      switch (name) {
-        case "_register":
-          this[name] = new Date(json[name]);
-          break;
-        default:
-          this[name] = json[name];
-      }
+
+  }
+
+  static async inserirAnimal(nome, brinco, brincoPai, brincoMae, raca, dataNasc, sexo) {
+    try {
+      const query = `
+        INSERT INTO animais (nome, brinco, brincoPai, brincoMae, raca, dataNasc, sexo)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
+      `;
+
+      const values = [nome, brinco, brincoPai, brincoMae, raca, dataNasc, sexo];
+
+      const result = await pool.query(query, values);
+      console.log('Inserção realizada com sucesso:', result.rowCount);
+    } catch (error) {
+      console.error('Erro ao inserir animal:', error);
+    } finally {
+      pool.end(); // Encerra a conexão com o banco de dados
     }
   }
 
-  static getAnimalStorage(tipo) {
-    let animals = [];
-    if (tipo == "C") {
-      if (localStorage.getItem("animalC")) {
-        animals = JSON.parse(localStorage.getItem("animalC"));
-      }
-    } else if (tipo == "L") {
-      if (localStorage.getItem("animalL")) {
-        animals = JSON.parse(localStorage.getItem("animalL"));
-      }
-    }
+  static async selectAll(){//Aqui ficará a query para selecionar todos os animais e exibi-los na tela
 
-    return animals;
   }
+
 
   save() {
 

@@ -1,3 +1,4 @@
+import { LeiteController } from "./LeiteController";
 const corteBtn = document.getElementById("corte-btn");
 const leiteBtn = document.getElementById("leite-btn");
 const NBL = document.getElementById("box-animal-createL");

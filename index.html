@@ -47,11 +47,6 @@
                 <!-- The user image in the menu -->
                 <li class="user-header">
                   <img id="avatar" src="dist/img/avatar5.png" class="img-circle" alt="User Image">
-
-                  <p>
-                    Fulano Junior - Web Developer
-                    <small>Membro desde Abr. 2018</small>
-                  </p>
                 </li>
                 <!-- Menu Body -->
                 <li class="user-body">
@@ -141,11 +136,11 @@
                 <table class="table table-striped">
                   <thead>
                     <tr>
-                      <th style="width: 100px">Foto</th>
                       <th>Nome</th>
                       <th>Brinco</th>
+                      <th>Raça</th>
                       <th>Gênero</th>
-                      <th>Reprodutor/Matriz</th>
+                      <th>Produção</th>
                       <th>Ações</th>
                     </tr>
                   </thead>
@@ -224,6 +219,16 @@
                       name="earing">
                   </div>
                   <div class="form-group">
+                    <label for="text">Brinco Mãe </label>
+                    <input required type="number" class="form-control" id="earingM" placeholder="Digite o Brinco da Mãe"
+                      name="earingM">
+                  </div>
+                  <div class="form-group">
+                    <label for="text">Brinco Pai </label>
+                    <input required type="number" class="form-control" id="earingP" placeholder="Digite o Brinco do Pai"
+                      name="earingP">
+                  </div>
+                  <div class="form-group">
                     <label for="imputBirth">Data de Nascimento</label>
                     <input type="date" class="form-control" id="imputBirth" name="birth">
                   </div>
@@ -244,16 +249,6 @@
                       <option value="Guzera">Guzera</option>
                       <option value="Jersey">Jersey</option>
                     </select>
-                  </div>
-                  <div class="form-group">
-                    <img src="dist/img/boxed-bg.jpg" class="photo" style="max-height: 128px;">
-                    <label for="exampleInputFile">Foto</label>
-                    <input type="file" id="exampleInputFileUpdate" name="photo">
-                  </div>
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox" name="matrix" id="inputMatrix"> Matriz/Reprodutor
-                    </label>
                   </div>
                   <div class="form-group">
                     <label for="text">Lactação do Animal</label>
@@ -299,6 +294,16 @@
                       name="earing">
                   </div>
                   <div class="form-group">
+                    <label for="text">Brinco Mãe </label>
+                    <input required type="number" class="form-control" id="earingM" placeholder="Digite o Brinco da Mãe"
+                      name="earing">
+                  </div>
+                  <div class="form-group">
+                    <label for="text">Brinco Pai </label>
+                    <input required type="number" class="form-control" id="earingP" placeholder="Digite o Brinco do Pai"
+                      name="earing">
+                  </div>
+                  <div class="form-group">
                     <label for="imputBirth">Data de Nascimento</label>
                     <input type="date" class="form-control" id="imputBirth" name="birth">
                   </div>
@@ -320,11 +325,6 @@
                       <option value="Jersey">Jersey</option>
                     </select>
                   </div>
-                  <div class="form-group">
-                    <img src="dist/img/boxed-bg.jpg" class="photo" style="max-height: 128px;">
-                    <label for="exampleInputFile">Foto</label>
-                    <input type="file" id="exampleInputFileUpdate" name="photo">
-                  </div>
                   <div class="checkbox">
                     <label>
                       <input type="checkbox" name="matrix" id="inputMatrix"> Matriz/Reprodutor
@@ -342,159 +342,6 @@
                   <button type="button" class="btn btn-default btn-cancel">Cancelar</button>
                 </div>
               </form>
-            </div>
-            <div class="box box-success" id="box-animal-createC" style="display: none;">
-              <div class="box-header with-border">
-                <h3 class="box-title">Bovino de Corte</h3>
-              </div>
-            <!-- form start -->
-            <form role="form" id="form-animal-createC" >
-              <div class="box-body">
-                <div class="form-group">
-                  <label for="imputName">Nome do Animal</label>
-                  <input required type="text" class="form-control" id="imputName" placeholder="Digite o nome do Animal"
-                    name="name">
-                </div>
-                <div class="form-group">
-                  <label>Gênero</label>
-                  <div class="radio">
-                    <label for="exampleInputGenderM">
-                      <input type="radio" id="imputGenderM" name="gender" value="Masculino" checked>
-                      Masculino</label>
-                  </div>
-                  <div class="radio">
-                    <label for="imputGenderF">
-                      <input type="radio" id="imputGenderF" name="gender" value="Feminino">
-                      Feminino</label>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="text">Brinco</label>
-                  <input type="number" class="form-control" id="imputEaring" placeholder="Digite o Brinco"
-                    name="earing">
-                </div>
-                <div class="form-group">
-                  <label for="imputBirth">Data de Nascimento</label>
-                  <input type="date" class="form-control" id="imputBirth" name="birth">
-                </div>
-                <div class="form-group">
-                  <label for="imputBreed">Raça</label>
-                  <select class="form-control" id="imputBreed" name="breed">
-                    <option selected="selected" value="">Selecione a Raça do Animal</option>
-                    <option value="Angus">Angus</option>
-                    <option value="Brangus">Brangus</option>
-                    <option value="Brahman">Brahman</option>
-                    <option value="Caracu">Caracu</option>
-                    <option value="Charoles">Charoles</option>
-                    <option value="Gir">Gir</option>
-                    <option value="Hereford">Hereford</option>
-                    <option value="Guzera">Guzera</option>
-                    <option value="Nelore">Nelore</option>
-                    <option value="Senepol">Senepol</option>
-                    <option value="Sindi">Sindi</option>
-                    <option value="Tabapua">Tabapua</option>
-                    <option value="Wagyu">Wagyu</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <img src="dist/img/boxed-bg.jpg" class="photo" style="max-height: 128px;">
-                  <label for="exampleInputFile">Foto</label>
-                  <input type="file" id="exampleInputFileUpdate" name="photo">
-                </div>
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" name="matrix" id="inputMatrix"> Matriz/Reprodutor
-                  </label>
-                </div>
-                <div class="form-group">
-                  <label for="text">Peso do Animal</label>
-                  <input required type="number" class="form-control" id="peso" placeholder="Peso do Animal"
-                    name="peso">
-                </div>
-              </div>
-              <!-- /.box-body -->
-              <div class="box-footer">
-                <button type="submit" class="btn btn-success">Salvar</button>
-              </div>
-            </form>
-            </div>
-            <div class="box box-primary" id="box-animal-updateC" style="display: none;">
-            <div class="box-header with-border">
-              <h3 class="box-title">Editar Bovino de Corte</h3>
-            </div>
-            <!-- /.box-header -->
-            <!-- form start -->
-            <form role="form" id="form-animal-updateC">
-              <div class="box-body">
-                <div class="form-group">
-                  <label for="imputName">Nome do Animal</label>
-                  <input required type="text" class="form-control" id="imputName" placeholder="Digite o nome do Animal"
-                    name="name">
-                </div>
-                <div class="form-group">
-                  <label>Gênero</label>
-                  <div class="radio">
-                    <label for="exampleInputGenderM">
-                      <input type="radio" id="imputGenderM" name="gender" value="Masculino" checked>
-                      Masculino</label>
-                  </div>
-                  <div class="radio">
-                    <label for="imputGenderF">
-                      <input type="radio" id="imputGenderF" name="gender" value="Feminino">
-                      Feminino</label>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="text">Brinco</label>
-                  <input required type="number" class="form-control" id="earing" placeholder="Digite o Brinco"
-                    name="earing">
-                </div>
-                <div class="form-group">
-                  <label for="imputBirth">Data de Nascimento</label>
-                  <input type="date" class="form-control" id="imputBirth" name="birth">
-                </div>
-                <div class="form-group">
-                  <label for="imputBreed">Raça</label>
-                  <select class="form-control" id="imputBreed" name="breed">
-                    <option selected="selected" value="">Selecione a Raça do Animal</option>
-
-                    <option value="Angus">Angus</option>
-                    <option value="Brangus">Brangus</option>
-                    <option value="Brahman">Brahman</option>
-                    <option value="Caracu">Caracu</option>
-                    <option value="Charoles">Charoles</option>
-                    <option value="Gir">Gir</option>
-                    <option value="Hereford">Hereford</option>
-                    <option value="Guzera">Guzera</option>
-                    <option value="Nelore">Nelore</option>
-                    <option value="Senepol">Senepol</option>
-                    <option value="Sindi">Sindi</option>
-                    <option value="Tabapua">Tabapua</option>
-                    <option value="Wagyu">Wagyu</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <img src="dist/img/boxed-bg.jpg" class="photo" style="max-height: 128px;">
-                  <label for="exampleInputFile">Foto</label>
-                  <input type="file" id="exampleInputFileUpdate" name="photo">
-                </div>
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" name="matrix" id="inputMatrix"> Matriz/Reprodutor
-                  </label>
-                </div>
-                <div class="form-group">
-                  <label for="text">Peso do Animal</label>
-                  <input required type="number" class="form-control" id="peso" placeholder="Peso do Animal"
-                    name="peso">
-                </div>
-              </div>
-              <!-- /.box-body -->
-              <div class="box-footer">
-                <button type="submit" class="btn btn-success">Salvar</button>
-                <button type="button" class="btn btn-default btn-cancel">Cancelar</button>
-              </div>
-            </form>
             </div>
         </div>
     </div>
@@ -518,11 +365,7 @@
 
   <script src="classes/Utils.js"></script>
   <script src="models/Animal.js"></script>
-  <script src="models/BovinoCorte.js"></script>
-  <script src="models/BovinoLeite.js"></script>
   <script src="models/user.js"></script>
-  <script src="LeiteController.js"></script>
-  <script src="CorteController.js"></script>
   <script src="index.js"></script>
 </body>
 

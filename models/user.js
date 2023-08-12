@@ -25,38 +25,11 @@ class User {
         return this._password;
     }
 
-    get photo() {
-        return this._photo;
-    }
-
-    set photo(value) {
-        this._photo = value;
-    }
-
     loadFronJSON(json) {
 
-        for (let name in json) {
-
-            switch (name) {
-
-                case '_register':
-
-                    this[name] = new Date(json[name])
-
-                    break;
-
-                default:
-
-                    this[name] = json[name];
-
-                    break;
-            }
-
-
-        }
+        
 
     }
-
 
 
     save() {//Verifica se um usuario possui um id caso contrario gera um novo para o mesmo

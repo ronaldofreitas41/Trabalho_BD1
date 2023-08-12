@@ -1,4 +1,5 @@
-class LeiteController {
+import {Animal} from "./models/Animal"
+export class LeiteController {
   constructor(formIdCreate, formIdUpdate, tableId, cont) {
     this.formEl = document.getElementById(formIdCreate);
     this.formUpdateEl = document.getElementById(formIdUpdate);
@@ -8,7 +9,7 @@ class LeiteController {
 
     this.onSubmit();
     this.onEdit();
-    this.selectAll(cont);
+    //this.selectAll(cont);
   }
 
   onEdit() {
@@ -31,40 +32,24 @@ class LeiteController {
 
       let tr = this.tableEl.rows[index];
 
-      let animalOld = JSON.parse(tr.dataset.animal);
+      let animal = new Animal();
 
-      let result = Object.assign({}, animalOld, values);
+      this.getTr(animal, tr);
 
-      this.getPhoto(this.formUpdateEl).then(
-        (content) => {
-          if (!values.photo) {
-            result._photo = animalOld._photo;
-          } else {
-            result._photo = content;
-          }
+      this.updateCount();
 
-          let animal = new BovinoLeite();
+      this.formUpdateEl.reset();
 
-          animal.loadFromJSON(result);
+      this.showPanelCreate();
 
-          animal.save("L");
-
-          this.getTr(animal, tr);
-
-          this.updateCount();
-
-          this.formUpdateEl.reset();
-
-          this.showPanelCreate();
-
-          btn.disabled = false;
-        },
-        (e) => {
-          console.error(e);
-        }
-      );
-    });
+      btn.disabled = false;
+    },
+      (e) => {
+        console.error(e);
+      }
+    );
   }
+
 
   onSubmit() {
     this.boxCreateEl.style.display = "block";
@@ -79,52 +64,18 @@ class LeiteController {
 
       if (!values) return false;
 
-      this.getPhoto(this.formEl).then(
-        (content) => {
-          values.photo = content;
+      console.log(values._name);
 
-          values.save("L");
+      Animal.inserirAnimal(values._name,values._earing,values._idPai,values._idMae,values._breed,values._birth,
+        values._gender)
+      this.addLine(values);
 
-          this.addLine(values);
+      this.formEl.reset();
 
-          this.formEl.reset();
-
-          btn.disabled = false;
-        },
-        (e) => {
-          console.error(e);
-        }
-      );
+      btn.disabled = false;
     });
   }
 
-  getPhoto(formEl) {
-    return new Promise((resolve, reject) => {
-      let fileReader = new FileReader();
-
-      let elements = [...formEl.elements].filter((item) => {
-        if (item.name === "photo") {
-          return item;
-        }
-      });
-
-      let file = elements[0].files[0];
-
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-
-      fileReader.onerror = (e) => {
-        reject(e);
-      };
-
-      if (file) {
-        fileReader.readAsDataURL(file);
-      } else {
-        resolve("dist/img/vaca.png");
-      }
-    });
-  }
 
   getValues(formEl) {
     let animal = {};
@@ -151,34 +102,17 @@ class LeiteController {
       return false;
     }
 
-    let boi = new BovinoLeite(
+    let boi = new Animal(
       animal.name,
-      animal.nameM,
-      animal.nameP,
+      animal.earingM,
+      animal.earingP,
       animal.gender,
       animal.birth,
       animal.breed,
-      animal.earing,
-      animal.photo,
-      animal.matrix,
-      animal.leite
+      animal.earing
     );
     console.log(boi);
     return boi;
-  }
-
-  selectAll(cont) {
-    if (cont == 0) {
-      let animals = Animal.getAnimalStorage("L");
-
-      animals.forEach((dataanimal) => {
-        let animal = new BovinoCorte();
-
-        animal.loadFromJSON(dataanimal);
-
-        this.addLine(animal);
-      });
-    }
   }
 
   addLine(dataanimal) {
@@ -195,13 +129,11 @@ class LeiteController {
     tr.dataset.animal = JSON.stringify(dataanimal);
 
     tr.innerHTML = `
-          <td><img src=${
-            dataanimal.photo
-          } style = "width: 50px" class="img-sqaure img-sm"></td>
           <td>${dataanimal.name}</td>
           <td>${dataanimal.earing}</td>
+          <td>${dataanimal.breed}</td>
           <td>${dataanimal.gender}</td>
-          <td>${dataanimal.matrix ? "Sim" : "Não"}</td>
+          <td>${dataanimal.leite}</td>
           <td>
               <button type="button" class="btn btn-primary btn-edit btn-xs btn-flat">Editar</button>
               <button type="button" class="btn btn-danger btn-delete btn-xs btn-flat">Excluir</button>

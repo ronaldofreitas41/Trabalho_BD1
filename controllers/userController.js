@@ -23,51 +23,12 @@ class UserController {
 
       if (!values) return false;
 
-      this.getPhoto(this.formEl, values.gender).then(
-        (content) => {
-          values.photo = content;
-
-          values.save();
-        },
-        (e) => {
-          console.error(e);
-        }
-      );
+      values.save();
+      
       location.href = "Login.html";
     });
   }
 
-  getPhoto(formEl, gender) {
-    return new Promise((resolve, reject) => {
-      let fileReader = new FileReader();
-
-      let elements = [...formEl.elements].filter((item) => {
-        if (item.name === "photo") {
-          return item;
-        }
-      });
-
-      let file = elements[0].files[0];
-
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-
-      fileReader.onerror = (e) => {
-        reject(e);
-      };
-
-      if (file) {
-        fileReader.readAsDataURL(file);
-      } else {
-        if (gender == "Masculino") {
-          resolve("dist/img/avatar5.png");
-        } else {
-          resolve("dist/img/avatar4.png");
-        }
-      }
-    });
-  }
 
   getValues(formEl) {
     let user = {};
