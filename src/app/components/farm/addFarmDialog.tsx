@@ -3,24 +3,19 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAnimal } from "@/contexts/animalContext";
+import { useFazenda } from "@/contexts/farmContexts";
 
 
 
-export const AddAnimalDialog = () => {
-  const { addAnimal } = useAnimal();
+export const AddFarmDialog = () => {
+  const { addFazenda } = useFazenda();
 
   const schema = z.object({
-    nome_gado: z.string().nonempty(),
-    datanasci_gado: z.string().nonempty(),
-    raca_gado: z.string().nonempty(),
-    brinco_gado: z.string().nonempty(),
-    // M or F select
-    sexo_gado: z
-      .string()
-      .nonempty()
-      .regex(/^[MF]$/),
-    faz_cnpj: z.string().nonempty()
+    cnpj_faz: z.string().nonempty(),
+    endereco_faz: z.string().nonempty(),
+    nome_faz: z.string().nonempty(),
+    area_faz: z.string().nonempty(),
+    prop_cpf:z.string().nonempty()
   });
 
   const {
@@ -33,75 +28,39 @@ export const AddAnimalDialog = () => {
 
   const onSubmit = handleSubmit((data) => {
     console.log(data);
-    addAnimal(data);
+    addFazenda(data);
   });
 
   return (
     <>
       <label htmlFor="my_modal_7" className="btn btn-primary">
-        Adicionar animal
+        Adicionar Fazenda
       </label>
 
       <input type="checkbox" id="my_modal_7" className="modal-toggle" />
       <div className="modal">
         <div className="modal-box">
-          <h3 className="text-lg font-bold">Adicionar animal</h3>
+          <h3 className="text-lg font-bold">Adicionar Fazenda</h3>
           <form onSubmit={onSubmit} className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
-              <label htmlFor="">Nome</label>
+              <label htmlFor="">Nome da Fazenda</label>
               <input
                 type="text"
                 className="input w-full input-bordered"
-                {...register("nome_gado")}
+                {...register("nome_faz")}
               />
-              {errors.nome_gado && (
+              {errors.nome_faz && (
                 <span className="text-xs text-red-500">Campo obrigatório</span>
               )}
             </div>
             <div className="flex flex-col gap-2">
-              <label htmlFor="">Data de nascimento</label>
-              <input
-                type="date"
-                className="input w-full input-bordered"
-                {...register("datanasci_gado")}
-              />
-              {errors.datanasci_gado && (
-                <span className="text-xs text-red-500">Campo obrigatório</span>
-              )}
-            </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="">Raça</label>
+              <label htmlFor="">Endereco da Fazenda</label>
               <input
                 type="text"
                 className="input w-full input-bordered"
-                {...register("raca_gado")}
+                {...register("endereco_faz")}
               />
-              {errors.raca_gado && (
-                <span className="text-xs text-red-500">Campo obrigatório</span>
-              )}
-            </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="">Brinco</label>
-              <input
-                type="text"
-                className="input w-full input-bordered"
-                {...register("brinco_gado")}
-              />
-              {errors.brinco_gado && (
-                <span className="text-xs text-red-500">Campo obrigatório</span>
-              )}
-            </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="">Sexo</label>
-              <select
-                {...register("sexo_gado")}
-                className="select select-bordered w-full"
-              >
-                <option value="">Selecione</option>
-                <option value="M">Macho</option>
-                <option value="F">Fêmea</option>
-              </select>
-              {errors.sexo_gado && (
+              {errors.endereco_faz && (
                 <span className="text-xs text-red-500">Campo obrigatório</span>
               )}
             </div>
@@ -110,9 +69,31 @@ export const AddAnimalDialog = () => {
               <input
                 type="text"
                 className="input w-full input-bordered"
-                {...register("faz_cnpj")}
+                {...register("cnpj_faz")}
               />
-              {errors.faz_cnpj && (
+              {errors.cnpj_faz && (
+                <span className="text-xs text-red-500">Campo obrigatório</span>
+              )}
+            </div>
+            <div className="flex flex-col gap-2">
+              <label htmlFor="">Area da Fazenda</label>
+              <input
+                type="text"
+                className="input w-full input-bordered"
+                {...register("area_faz")}
+              />
+              {errors.area_faz && (
+                <span className="text-xs text-red-500">Campo obrigatório</span>
+              )}
+            </div>
+            <div className="flex flex-col gap-2">
+              <label htmlFor="">CPF do proprietário</label>
+              <input
+                type="text"
+                className="input w-full input-bordered"
+                {...register("prop_cpf")}
+              />
+              {errors.prop_cpf && (
                 <span className="text-xs text-red-500">Campo obrigatório</span>
               )}
             </div>

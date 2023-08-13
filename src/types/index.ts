@@ -7,18 +7,18 @@ export interface Animal {
   faz_cnpj: string;
 }
 export interface Producao {
-  id_ord:number;
-  ano_ord:number;
-  mes_ord:number;
-  dia_ord:number;
-  qntLeite_ord:number;
+  id_ord:string;
+  ano_ord:string;
+  mes_ord:string;
+  dia_ord:string;
+  qntLeite_ord:string;
   gado_brinco:string;
 }
 export interface Fazenda {
   cnpj_faz:string;
-  endereco:string;
+  endereco_faz:string;
   nome_faz:string;
-  area_faz:number;
+  area_faz:string;
   prop_cpf:string;
 }
 export interface Fazendeiro {

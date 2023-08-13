@@ -1,19 +1,16 @@
 "use client";
 
-import { useAnimal } from "@/contexts/animalContext";
-import { Animal } from "@/types";
+import { useFazenda } from "@/contexts/farmContexts";
+import { Fazenda } from "@/types";
 import { FaRegEdit } from "react-icons/fa";
 import { FiTrash } from "react-icons/fi";
 
 type Props = {
-  animals: Animal[];
+  fazendas: Fazenda[];
 };
 
 export const Table = () => {
-  const { animals, removeAnimal } = useAnimal();
-  const animalDateFormat = (date: string) => {
-    return Intl.DateTimeFormat("pt-BR").format(new Date(date))
-  }
+  const { fazendas, removeFazenda } = useFazenda();
   return (
     <div className="overflow-x-auto">
       <table className="table">
@@ -21,30 +18,30 @@ export const Table = () => {
         <thead>
           <tr>
             <th></th>
-            <th>Nome</th>
-            <th>Data de Nascimento</th>
-            <th>Raça</th>
-            <th>Sexo</th>
-            <th>Brinco</th>
-            <th>actions</th>
+            <th>Nome da Fazenda</th>
+            <th>Endereco</th>
+            <th>CNPJ</th>
+            <th>CPF Dono</th>
+            <th>Area</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {animals.map((animal, id) => (
+          {fazendas.map((fazendas, id) => (
             <tr key={id}>
               <td>{id + 1}</td>
-              <td>{animal.nome_gado}</td>
-              <td>{animalDateFormat(animal.datanasci_gado)}</td>
-              <td>{animal.raca_gado}</td>
-              <td>{animal.sexo_gado}</td>
-              <td>{animal.brinco_gado}</td>
+              <td>{fazendas.nome_faz}</td>
+              <td>{fazendas.endereco_faz}</td>
+              <td>{fazendas.cnpj_faz}</td>
+              <td>{fazendas.prop_cpf}</td>
+              <td>{fazendas.area_faz}</td>
               <td className="flex gap-2">
                 <button className="btn btn-ghost">
                   <FaRegEdit />
                 </button>
                 <button
                   className=" btn btn-ghost"
-                  onClick={() => removeAnimal(animal.brinco_gado)}
+                  onClick={() => removeFazenda(fazendas.cnpj_faz)}
                 >
                   <FiTrash />
                 </button>

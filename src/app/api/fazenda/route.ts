@@ -1,29 +1,29 @@
 import { pool } from "@/database";
-import { Animal } from "@/types";
+import {  Fazenda } from "@/types";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   const data = await pool
-    .query("SELECT * FROM gadoleite")
+    .query("SELECT * FROM fazenda")
     .then((res) => res.rows);
   return NextResponse.json(data);
 }
 export async function UPDATE(request: Request) {//Conferir com o Duque
-  const body: Animal = await request.json();
+  const body: Fazenda = await request.json();
 
   const {
-    nome_gado,
-    datanasci_gado,
-    raca_gado,
-    brinco_gado,
-    sexo_gado,
-    faz_cnpj,
+    nome_faz,
+    cnpj_faz,
+    endereco_faz,
+    area_faz,
+    prop_cpf,
+  
   } = body;
 
   try {
     const result = await pool.query(
-      "UPDATE gadoleite SET nome_gado = $1, datanasci_gado = $2, raca_gado = $3, sexo_gado = $4, faz_cnpj = $5 WHERE brinco_gado = $6",
-      [nome_gado, datanasci_gado, raca_gado, sexo_gado, faz_cnpj, brinco_gado]
+      "UPDATE fazenda SET nome_faz = $1, cnpj_faz = $2, endereco_faz = $3, prop_cpf = $4, WHERE area_faz = $6",
+      [nome_faz, cnpj_faz, endereco_faz, prop_cpf, area_faz]
     );
 
     return NextResponse.json({ message: "Registro atualizado com sucesso" });
@@ -39,7 +39,7 @@ export async function DELETE(request: Request) {//Conferir com o Duque
 
   try {
     const result = await pool.query(
-      "DELETE FROM gadoleite WHERE brinco_gado = $1",
+      "DELETE FROM fazenda WHERE brinco_gado = $1",
       [brincoGado]
     );
 
@@ -49,18 +49,17 @@ export async function DELETE(request: Request) {//Conferir com o Duque
   }
 }
 export async function POST(request: Request) {
-  const body: Animal = await request.json();
+  const body: Fazenda = await request.json();
 
   const data = await pool
     .query(
-      "INSERT INTO gadoleite (nome_gado,datanasci_gado,raca_gado,brinco_gado,sexo_gado,faz_cnpj) VALUES ($1,$2,$3,$4,$5,$6)",
+      "INSERT INTO fazenda (nome_faz,cnpj_faz,area_faz,endereco_faz,prop_cpf) VALUES ($1,$2,$3,$4,$5)",
       [
-        body.nome_gado,
-        body.datanasci_gado,
-        body.raca_gado,
-        body.brinco_gado,
-        body.sexo_gado,
-        body.faz_cnpj,
+        body.nome_faz,
+        body.cnpj_faz,
+        body.area_faz,
+        body.endereco_faz,
+        body.prop_cpf
       ]
     )
     .then((res) => res.rows);
