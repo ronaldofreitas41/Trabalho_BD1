@@ -2,10 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Header } from "./components/header";
-import { AnimalProvider } from "@/contexts/animalContext";
-import { FazendaProvider } from "@/contexts/farmContexts";
-import { ProducaoProvider } from "@/contexts/production";
-import { FazendeiroProvider } from "@/contexts/farmerContext";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,16 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="emerald">
       <body className={inter.className}>
-        <ProducaoProvider>
-          <FazendeiroProvider>
-            <FazendaProvider>
-              <AnimalProvider>
-                <Header />
-                {children}
-              </AnimalProvider>
-            </FazendaProvider>
-          </FazendeiroProvider>
-        </ProducaoProvider>
+        <Header />
+        {children}
+        <Toaster />
       </body>
     </html>
   );

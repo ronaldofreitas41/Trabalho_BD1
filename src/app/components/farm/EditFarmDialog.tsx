@@ -3,16 +3,20 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import toast from "react-hot-toast";
+import { toast } from "react-hot-toast";
+import { FaRegEdit } from "react-icons/fa";
+import { Fazenda } from "@/types";
+interface Props {
+  farm: Fazenda;
+}
 
-export const AddProductionDialog = () => {
+export const EditFarmDialog = ({ farm }: Props) => {
   const schema = z.object({
-    id_ord: z.string().nonempty(),
-    ano_ord: z.string().nonempty(),
-    mes_ord: z.string().nonempty(),
-    dia_ord: z.string().nonempty(),
-    qntLeite_ord: z.string().nonempty(),
-    gado_brinco: z.string().nonempty(),
+    cnpj_faz: z.string().nonempty(),
+    endereco_faz: z.string().nonempty(),
+    nome_faz: z.string().nonempty(),
+    area_faz: z.string().nonempty(),
+    prop_cpf: z.string().nonempty(),
   });
 
   const {
@@ -21,99 +25,97 @@ export const AddProductionDialog = () => {
     formState: { errors },
   } = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
+    defaultValues: {
+      nome_faz:farm.nome_faz,
+      cnpj_faz:farm.cnpj_faz,
+      area_faz:farm.area_faz,
+      endereco_faz:farm.endereco_faz,
+      prop_cpf:farm.prop_cpf,
+    },
   });
 
   const onSubmit = handleSubmit(async (data) => {
-    const res = await fetch(`http://localhost:3000/api/productions`, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
+    const res = await fetch(
+      `http://localhost:3000/api/farms/${data.cnpj_faz}`,
+      {
+        method: "PUT",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     if (res.ok) {
-      toast.success("Fazenda adicionado com sucesso!");
+      toast.success("Fazendeiro editado com sucesso!");
       window.location.reload();
     } else {
-      toast.error("Erro ao adicionar fazenda!");
+      toast.error("Erro ao editar fazendeiro!");
     }
   });
 
   return (
     <>
-      <label htmlFor="my_modal_7" className="btn btn-primary">
-        Adicionar Ordenha
+      <label htmlFor="my_modal_1" className="btn btn-ghost">
+        <FaRegEdit />
       </label>
 
-      <input type="checkbox" id="my_modal_7" className="modal-toggle" />
+      <input type="checkbox" id="my_modal_1" className="modal-toggle" />
       <div className="modal">
         <div className="modal-box">
-          <h3 className="text-lg font-bold">Adicionar Ordenha</h3>
+          <h3 className="text-lg font-bold">Adicionar Fazenda</h3>
           <form onSubmit={onSubmit} className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
-              <label htmlFor="">Id Ordenha</label>
+              <label htmlFor="">Nome da Fazenda</label>
               <input
                 type="text"
                 className="input w-full input-bordered"
-                {...register("id_ord")}
+                {...register("nome_faz")}
               />
-              {errors.id_ord && (
+              {errors.nome_faz && (
                 <span className="text-xs text-red-500">Campo obrigatório</span>
               )}
             </div>
             <div className="flex flex-col gap-2">
-              <label htmlFor="">Ano</label>
+              <label htmlFor="">Endereco da Fazenda</label>
               <input
                 type="text"
                 className="input w-full input-bordered"
-                {...register("ano_ord")}
+                {...register("endereco_faz")}
               />
-              {errors.ano_ord && (
+              {errors.endereco_faz && (
                 <span className="text-xs text-red-500">Campo obrigatório</span>
               )}
             </div>
             <div className="flex flex-col gap-2">
-              <label htmlFor="">Mês</label>
+              <label htmlFor="">CNPJ da Fazenda</label>
               <input
                 type="text"
                 className="input w-full input-bordered"
-                {...register("mes_ord")}
+                {...register("cnpj_faz")}
               />
-              {errors.mes_ord && (
+              {errors.cnpj_faz && (
                 <span className="text-xs text-red-500">Campo obrigatório</span>
               )}
             </div>
             <div className="flex flex-col gap-2">
-              <label htmlFor="">Dia</label>
+              <label htmlFor="">Area da Fazenda</label>
               <input
                 type="text"
                 className="input w-full input-bordered"
-                {...register("dia_ord")}
+                {...register("area_faz")}
               />
-              {errors.dia_ord && (
+              {errors.area_faz && (
                 <span className="text-xs text-red-500">Campo obrigatório</span>
               )}
             </div>
             <div className="flex flex-col gap-2">
-              <label htmlFor="">Produção</label>
+              <label htmlFor="">CPF do proprietário</label>
               <input
                 type="text"
                 className="input w-full input-bordered"
-                {...register("qntLeite_ord")}
+                {...register("prop_cpf")}
               />
-              {errors.qntLeite_ord && (
-                <span className="text-xs text-red-500">Campo obrigatório</span>
-              )}
-            </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="">Brinco Animal</label>
-              <input
-                type="text"
-                className="input w-full input-bordered"
-                {...register("gado_brinco")}
-              />
-              {errors.gado_brinco && (
+              {errors.prop_cpf && (
                 <span className="text-xs text-red-500">Campo obrigatório</span>
               )}
             </div>

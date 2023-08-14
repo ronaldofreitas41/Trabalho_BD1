@@ -1,30 +1,29 @@
 import { pool } from "@/database";
-import { Animal } from "@/types";
+import { Producao } from "@/types";
 import { throws } from "assert";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   const data = await pool
-    .query("SELECT * FROM gadoleite")
+    .query("SELECT * FROM ordenha")
     .then((res) => res.rows);
   return NextResponse.json(data);
-}     
-
+}
 export async function POST(request: Request) {
-  const body: Animal = await request.json();
+  const body: Producao = await request.json();
 
   console.log(body);
 
   const data = await pool
     .query(
-      "INSERT INTO gadoleite (nome_gado,datanasci_gado,raca_gado,brinco_gado,sexo_gado,faz_cnpj) VALUES ($1,$2,$3,$4,$5,$6)",
+      "INSERT INTO ordenha (id_ord,ano_ord,mes_ord,dia_ord,qntLeite_ord,gado_brinco) VALUES ($1,$2,$3,$4,$5,$6)",
       [
-        body.nome_gado,
-        body.datanasci_gado,
-        body.raca_gado,
-        body.brinco_gado,
-        body.sexo_gado,
-        body.faz_cnpj,
+        body.id_ord,
+        body.ano_ord,
+        body.mes_ord,
+        body.dia_ord,
+        body.qntLeite_ord,
+        body.gado_brinco,
       ]
     )
     .then((res) => res.rows);

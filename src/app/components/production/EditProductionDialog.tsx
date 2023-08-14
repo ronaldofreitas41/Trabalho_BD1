@@ -4,8 +4,14 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
+import { Producao } from "@/types";
+import { FaRegEdit } from "react-icons/fa";
 
-export const AddProductionDialog = () => {
+interface Props {
+  production: Producao;
+}
+
+export const EditProductionDialog = ({ production }: Props) => {
   const schema = z.object({
     id_ord: z.string().nonempty(),
     ano_ord: z.string().nonempty(),
@@ -21,32 +27,43 @@ export const AddProductionDialog = () => {
     formState: { errors },
   } = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
+    defaultValues: {
+      ano_ord: production.ano_ord,
+      dia_ord: production.dia_ord,
+      gado_brinco: production.gado_brinco,
+      id_ord: production.id_ord,
+      mes_ord: production.mes_ord,
+      qntLeite_ord: production.qntLeite_ord,
+    },
   });
 
   const onSubmit = handleSubmit(async (data) => {
-    const res = await fetch(`http://localhost:3000/api/productions`, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      `http://localhost:3000/api/productions/${data.id_ord}`,
+      {
+        method: "PUT",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     if (res.ok) {
-      toast.success("Fazenda adicionado com sucesso!");
+      toast.success("Ordenha editado com sucesso!");
       window.location.reload();
     } else {
-      toast.error("Erro ao adicionar fazenda!");
+      toast.error("Erro ao editar Ordenha!");
     }
   });
 
   return (
     <>
-      <label htmlFor="my_modal_7" className="btn btn-primary">
-        Adicionar Ordenha
+      <label htmlFor="edit_modal" className="btn btn-ghost">
+        <FaRegEdit />
       </label>
 
-      <input type="checkbox" id="my_modal_7" className="modal-toggle" />
+      <input type="checkbox" id="edit_modal" className="modal-toggle" />
       <div className="modal">
         <div className="modal-box">
           <h3 className="text-lg font-bold">Adicionar Ordenha</h3>
@@ -121,7 +138,7 @@ export const AddProductionDialog = () => {
             <button className="btn btn-primary">Submit</button>
           </form>
         </div>
-        <label className="modal-backdrop" htmlFor="my_modal_7">
+        <label className="modal-backdrop" htmlFor="edit_modal">
           Close
         </label>
       </div>

@@ -3,19 +3,15 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useFazendeiro } from "@/contexts/farmerContext";
-
-
+import { toast } from "react-hot-toast";
 
 export const AddFarmerDialog = () => {
-  const { addFazendeiro } = useFazendeiro();
-
   const schema = z.object({
     cpf_prop: z.string().nonempty(),
     nome_prop: z.string().nonempty(),
-    datanac_prop: z.string().nonempty(),
+    datanasc_prop: z.string().nonempty(),
     telefone_prop: z.string().nonempty(),
-    endereco_prop: z.string().nonempty()
+    endereco_prop: z.string().nonempty(),
   });
 
   const {
@@ -26,9 +22,20 @@ export const AddFarmerDialog = () => {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(async (data) => {
     console.log(data);
-    addFazendeiro(data);
+
+    const res = await fetch("http://localhost:3000/api/farmers", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+
+    if (res.ok) {
+      toast.success("Fazendeiro cadastrado com sucesso!");
+      window.location.reload();
+    } else {
+      toast.error("Erro ao cadastrar fazendeiro!");
+    }
   });
 
   return (
@@ -58,9 +65,9 @@ export const AddFarmerDialog = () => {
               <input
                 type="date"
                 className="input w-full input-bordered"
-                {...register("datanac_prop")}
+                {...register("datanasc_prop")}
               />
-              {errors.datanac_prop && (
+              {errors.datanasc_prop && (
                 <span className="text-xs text-red-500">Campo obrigatório</span>
               )}
             </div>

@@ -3,19 +3,16 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useFazenda } from "@/contexts/farmContexts";
-
-
+import toast from "react-hot-toast";
 
 export const AddFarmDialog = () => {
-  const { addFazenda } = useFazenda();
 
   const schema = z.object({
     cnpj_faz: z.string().nonempty(),
     endereco_faz: z.string().nonempty(),
     nome_faz: z.string().nonempty(),
     area_faz: z.string().nonempty(),
-    prop_cpf:z.string().nonempty()
+    prop_cpf: z.string().nonempty(),
   });
 
   const {
@@ -26,11 +23,22 @@ export const AddFarmDialog = () => {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
-    addFazenda(data);
-  });
+  const onSubmit = handleSubmit(async (data) => {
+    const res = await fetch(`http://localhost:3000/api/farms`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
+    if (res.ok) {
+      toast.success("Fazenda adicionado com sucesso!");
+      window.location.reload();
+    } else {
+      toast.error("Erro ao adicionar fazenda!");
+    }
+  });
   return (
     <>
       <label htmlFor="my_modal_7" className="btn btn-primary">
