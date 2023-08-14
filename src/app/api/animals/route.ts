@@ -1,5 +1,6 @@
 import { pool } from "@/database";
 import { Animal } from "@/types";
+import { throws } from "assert";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -8,7 +9,7 @@ export async function GET() {
     .then((res) => res.rows);
   return NextResponse.json(data);
 }
-export async function UPDATE(request: Request) {//Conferir com o Duque
+export async function UPDATE(request: Request) {
   const body: Animal = await request.json();
 
   const {
@@ -32,18 +33,23 @@ export async function UPDATE(request: Request) {//Conferir com o Duque
   }
 }
 
-export async function DELETE(request: Request) {//Conferir com o Duque
+export async function DELETE(request: Request) {
   const body: { brinco_gado: string } = await request.json();
-
   const brincoGado = body.brinco_gado;
-
+  const alreadyExists = await pool
+    .query("SELECT * FROM gadoleite WHERE brinco_gado = $1",[
+      brincoGado,
+    ])
+    .then((res) => res.rows);
   try {
-    const result = await pool.query(
-      "DELETE FROM gadoleite WHERE brinco_gado = $1",
-      [brincoGado]
-    );
-
-    return NextResponse.json({ message: "Registro excluído com sucesso" });
+    if(alreadyExists){
+      await pool.query("DELETE FROM gadoleite WHERE brinco_gado = $1", [
+        brincoGado,
+      ]);
+      return NextResponse.json({ message: "Registro excluído com sucesso" });
+    }else{
+      throw new Error("Esse animal não Existe!");
+    }
   } catch (error) {
     return NextResponse.json({ error: "Erro ao excluir registro" });
   }

@@ -1,29 +1,29 @@
 import { pool } from "@/database";
-import { Animal } from "@/types";
+import { Producao } from "@/types";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   const data = await pool
-    .query("SELECT * FROM gadoleite")
+    .query("SELECT * FROM ordenha")
     .then((res) => res.rows);
   return NextResponse.json(data);
 }
 export async function UPDATE(request: Request) {//Conferir com o Duque
-  const body: Animal = await request.json();
+  const body: Producao = await request.json();
 
   const {
-    nome_gado,
-    datanasci_gado,
-    raca_gado,
-    brinco_gado,
-    sexo_gado,
-    faz_cnpj,
+    qntLeite_ord,
+    ano_ord,
+    dia_ord,
+    id_ord,
+    mes_ord,
+    gado_brinco,
   } = body;
 
   try {
     const result = await pool.query(
-      "UPDATE gadoleite SET nome_gado = $1, datanasci_gado = $2, raca_gado = $3, sexo_gado = $4, faz_cnpj = $5 WHERE brinco_gado = $6",
-      [nome_gado, datanasci_gado, raca_gado, sexo_gado, faz_cnpj, brinco_gado]
+      "UPDATE ordenha SET qntLeite_ord = $1, ano_ord = $2, dia_ord = $3, mes_ord = $4, gado_brinco = $5 WHERE id_ord = $6",
+      [qntLeite_ord, ano_ord, dia_ord, mes_ord, gado_brinco, id_ord]
     );
 
     return NextResponse.json({ message: "Registro atualizado com sucesso" });
@@ -33,14 +33,14 @@ export async function UPDATE(request: Request) {//Conferir com o Duque
 }
 
 export async function DELETE(request: Request) {//Conferir com o Duque
-  const body: { brinco_gado: string } = await request.json();
+  const body: { id_ord: string } = await request.json();
 
-  const brincoGado = body.brinco_gado;
+  const idOrd = body.id_ord;
 
   try {
     const result = await pool.query(
-      "DELETE FROM gadoleite WHERE brinco_gado = $1",
-      [brincoGado]
+      "DELETE FROM ordenha WHERE id_ord = $1",
+      [idOrd]
     );
 
     return NextResponse.json({ message: "Registro excluído com sucesso" });
@@ -49,18 +49,18 @@ export async function DELETE(request: Request) {//Conferir com o Duque
   }
 }
 export async function POST(request: Request) {
-  const body: Animal = await request.json();
+  const body: Producao = await request.json();
 
   const data = await pool
     .query(
-      "INSERT INTO gadoleite (nome_gado,datanasci_gado,raca_gado,brinco_gado,sexo_gado,faz_cnpj) VALUES ($1,$2,$3,$4,$5,$6)",
+      "INSERT INTO ordenha (qntLeite_ord,ano_ord,dia_ord,id_ord,mes_ord,gado_brinco) VALUES ($1,$2,$3,$4,$5,$6)",
       [
-        body.nome_gado,
-        body.datanasci_gado,
-        body.raca_gado,
-        body.brinco_gado,
-        body.sexo_gado,
-        body.faz_cnpj,
+        body.qntLeite_ord,
+        body.ano_ord,
+        body.dia_ord,
+        body.id_ord,
+        body.mes_ord,
+        body.gado_brinco,
       ]
     )
     .then((res) => res.rows);

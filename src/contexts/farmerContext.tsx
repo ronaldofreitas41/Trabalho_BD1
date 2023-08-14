@@ -26,7 +26,7 @@ export const FazendeiroProvider: React.FC<PropsWithChildren> = ({ children }) =>
   const [fazendeiros, setFazendeiros] = useState<Fazendeiro[]>([]);
 
   const addFazendeiro = async (Fazendeiro:Fazendeiro) => {
-    const res = await fetch("http://localhost:3000/api/fazendeiros", {
+    const res = await fetch("http://localhost:3000/api/fazendeiro", {
       method: "POST",
       body: JSON.stringify(Fazendeiro),
       headers: {
@@ -44,7 +44,7 @@ export const FazendeiroProvider: React.FC<PropsWithChildren> = ({ children }) =>
 
   useEffect(() => {
     const getFazendeiros = async () => {
-      const res = await fetch("http://localhost:3000/api/fazendeiros");
+      const res = await fetch("http://localhost:3000/api/fazendeiro");
       const data = await res.json();
       console.log(data);
       setFazendeiros(data);

@@ -1,19 +1,16 @@
 "use client";
 
-import { useAnimal } from "@/contexts/animalContext";
-import { Animal } from "@/types";
+import { useProducao } from "@/contexts/production";
+import { Producao } from "@/types";
 import { FaRegEdit } from "react-icons/fa";
 import { FiTrash } from "react-icons/fi";
 
 type Props = {
-  animals: Animal[];
+  animals: Producao[];
 };
 
 export const Table = () => {
-  const { animals, removeAnimal } = useAnimal();
-  const animalDateFormat = (date: string) => {
-    return Intl.DateTimeFormat("pt-BR").format(new Date(date))
-  }
+  const { producao, removeProducao } = useProducao();
   return (
     <div className="overflow-x-auto">
       <table className="table">
@@ -21,30 +18,30 @@ export const Table = () => {
         <thead>
           <tr>
             <th></th>
-            <th>Nome</th>
-            <th>Data de Nascimento</th>
-            <th>Raça</th>
-            <th>Sexo</th>
-            <th>Brinco</th>
+            <th>Identificador (ID)</th>
+            <th>Ano</th>
+            <th>Mes</th>
+            <th>Dia</th>
+            <th>Quatidade</th>
             <th>actions</th>
           </tr>
         </thead>
         <tbody>
-          {animals.map((animal, id) => (
+          {producao.map((producao, id) => (
             <tr key={id}>
               <td>{id + 1}</td>
-              <td>{animal.nome_gado}</td>
-              <td>{animalDateFormat(animal.datanasci_gado)}</td>
-              <td>{animal.raca_gado}</td>
-              <td>{animal.sexo_gado}</td>
-              <td>{animal.brinco_gado}</td>
+              <td>{producao.id_ord}</td>
+              <td>{producao.dia_ord}</td>
+              <td>{producao.mes_ord}</td>
+              <td>{producao.ano_ord}</td>
+              <td>{producao.qntLeite_ord}</td>
               <td className="flex gap-2">
                 <button className="btn btn-ghost">
                   <FaRegEdit />
                 </button>
                 <button
                   className=" btn btn-ghost"
-                  onClick={() => removeAnimal(animal.brinco_gado)}
+                  //onClick={() => removeProducao(producao.id_ord)}
                 >
                   <FiTrash />
                 </button>

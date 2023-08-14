@@ -3,6 +3,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Header } from "./components/header";
 import { AnimalProvider } from "@/contexts/animalContext";
+import { FazendaProvider } from "@/contexts/farmContexts";
+import { ProducaoProvider } from "@/contexts/production";
+import { FazendeiroProvider } from "@/contexts/farmerContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,10 +22,16 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="emerald">
       <body className={inter.className}>
-        <AnimalProvider>
-          <Header />
-          {children}
-        </AnimalProvider>
+        <ProducaoProvider>
+          <FazendeiroProvider>
+            <FazendaProvider>
+              <AnimalProvider>
+                <Header />
+                {children}
+              </AnimalProvider>
+            </FazendaProvider>
+          </FazendeiroProvider>
+        </ProducaoProvider>
       </body>
     </html>
   );

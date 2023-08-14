@@ -3,24 +3,19 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAnimal } from "@/contexts/animalContext";
+import { useFazendeiro } from "@/contexts/farmerContext";
 
 
 
-export const AddAnimalDialog = () => {
-  const { addAnimal } = useAnimal();
+export const AddFarmerDialog = () => {
+  const { addFazendeiro } = useFazendeiro();
 
   const schema = z.object({
-    nome_gado: z.string().nonempty(),
-    datanasci_gado: z.string().nonempty(),
-    raca_gado: z.string().nonempty(),
-    brinco_gado: z.string().nonempty(),
-    // M or F select
-    sexo_gado: z
-      .string()
-      .nonempty()
-      .regex(/^[MF]$/),
-    faz_cnpj: z.string().nonempty()
+    cpf_prop: z.string().nonempty(),
+    nome_prop: z.string().nonempty(),
+    datanac_prop: z.string().nonempty(),
+    telefone_prop: z.string().nonempty(),
+    endereco_prop: z.string().nonempty()
   });
 
   const {
@@ -33,28 +28,28 @@ export const AddAnimalDialog = () => {
 
   const onSubmit = handleSubmit((data) => {
     console.log(data);
-    addAnimal(data);
+    addFazendeiro(data);
   });
 
   return (
     <>
       <label htmlFor="my_modal_7" className="btn btn-primary">
-        Adicionar animal
+        Adicionar Fazendeiro
       </label>
 
       <input type="checkbox" id="my_modal_7" className="modal-toggle" />
       <div className="modal">
         <div className="modal-box">
-          <h3 className="text-lg font-bold">Adicionar animal</h3>
+          <h3 className="text-lg font-bold">Adicionar Fazendeiro</h3>
           <form onSubmit={onSubmit} className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
-              <label htmlFor="">Nome</label>
+              <label htmlFor="">Nome do Fazendeiro</label>
               <input
                 type="text"
                 className="input w-full input-bordered"
-                {...register("nome_gado")}
+                {...register("nome_prop")}
               />
-              {errors.nome_gado && (
+              {errors.nome_prop && (
                 <span className="text-xs text-red-500">Campo obrigatório</span>
               )}
             </div>
@@ -63,56 +58,42 @@ export const AddAnimalDialog = () => {
               <input
                 type="date"
                 className="input w-full input-bordered"
-                {...register("datanasci_gado")}
+                {...register("datanac_prop")}
               />
-              {errors.datanasci_gado && (
+              {errors.datanac_prop && (
                 <span className="text-xs text-red-500">Campo obrigatório</span>
               )}
             </div>
             <div className="flex flex-col gap-2">
-              <label htmlFor="">Raça</label>
+              <label htmlFor="">Telefone</label>
               <input
                 type="text"
                 className="input w-full input-bordered"
-                {...register("raca_gado")}
+                {...register("telefone_prop")}
               />
-              {errors.raca_gado && (
+              {errors.telefone_prop && (
                 <span className="text-xs text-red-500">Campo obrigatório</span>
               )}
             </div>
             <div className="flex flex-col gap-2">
-              <label htmlFor="">Brinco</label>
+              <label htmlFor="">Endereco</label>
               <input
                 type="text"
                 className="input w-full input-bordered"
-                {...register("brinco_gado")}
+                {...register("endereco_prop")}
               />
-              {errors.brinco_gado && (
+              {errors.endereco_prop && (
                 <span className="text-xs text-red-500">Campo obrigatório</span>
               )}
             </div>
             <div className="flex flex-col gap-2">
-              <label htmlFor="">Sexo</label>
-              <select
-                {...register("sexo_gado")}
-                className="select select-bordered w-full"
-              >
-                <option value="">Selecione</option>
-                <option value="M">Macho</option>
-                <option value="F">Fêmea</option>
-              </select>
-              {errors.sexo_gado && (
-                <span className="text-xs text-red-500">Campo obrigatório</span>
-              )}
-            </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="">CNPJ da Fazenda</label>
+              <label htmlFor="">CPF Produtor</label>
               <input
                 type="text"
                 className="input w-full input-bordered"
-                {...register("faz_cnpj")}
+                {...register("cpf_prop")}
               />
-              {errors.faz_cnpj && (
+              {errors.cpf_prop && (
                 <span className="text-xs text-red-500">Campo obrigatório</span>
               )}
             </div>

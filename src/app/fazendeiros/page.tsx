@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { AnimalsList } from "../components/animals/list";
-import { AddAnimalDialog } from "../components/animals/addAnimalDialog";
+import { FazendeirosList } from "../components/farmer/list";
+import { AddFarmerDialog } from "../components/farmer/addFarmerDialog";
 
 const Breadcrumbs = () => {
   return (
@@ -23,9 +23,9 @@ export default function Home() {
       <Breadcrumbs />
       <div className="flex gap-4 items-center justify-between">
         <p>Gerenciamento de Animais</p>
-        <AddAnimalDialog />
+        <AddFarmerDialog />
       </div>
-      <AnimalsList />
+      <FazendeirosList />
     </main>
   );
 }

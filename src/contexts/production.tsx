@@ -44,7 +44,7 @@ export const ProducaoProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
   useEffect(() => {
     const getProducoes = async () => {
-      const res = await fetch("http://localhost:3000/api/animals");
+      const res = await fetch("http://localhost:3000/api/productions");
       const data = await res.json();
       console.log(data);
       setProducoes(data);

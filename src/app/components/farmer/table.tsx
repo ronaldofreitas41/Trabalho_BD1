@@ -1,6 +1,6 @@
 "use client";
 
-import { useAnimal } from "@/contexts/animalContext";
+import { useFazendeiro } from "@/contexts/farmerContext";
 import { Animal } from "@/types";
 import { FaRegEdit } from "react-icons/fa";
 import { FiTrash } from "react-icons/fi";
@@ -10,8 +10,8 @@ type Props = {
 };
 
 export const Table = () => {
-  const { animals, removeAnimal } = useAnimal();
-  const animalDateFormat = (date: string) => {
+  const { fazendeiros, removeFazendeiro } = useFazendeiro();
+  const fazendeiroDateFormat = (date: string) => {
     return Intl.DateTimeFormat("pt-BR").format(new Date(date))
   }
   return (
@@ -20,31 +20,28 @@ export const Table = () => {
         {/* head */}
         <thead>
           <tr>
-            <th></th>
-            <th>Nome</th>
+            <th>Nome Proprietario</th>
             <th>Data de Nascimento</th>
-            <th>Raça</th>
-            <th>Sexo</th>
-            <th>Brinco</th>
-            <th>actions</th>
+            <th>Telefone</th>
+            <th>Endereço</th>
+            <th>CPF</th>
           </tr>
         </thead>
         <tbody>
-          {animals.map((animal, id) => (
+          {fazendeiros.map((fazendeiro, id) => (
             <tr key={id}>
-              <td>{id + 1}</td>
-              <td>{animal.nome_gado}</td>
-              <td>{animalDateFormat(animal.datanasci_gado)}</td>
-              <td>{animal.raca_gado}</td>
-              <td>{animal.sexo_gado}</td>
-              <td>{animal.brinco_gado}</td>
+              <td>{fazendeiro.nome_prop}</td>
+              <td>{fazendeiroDateFormat(fazendeiro.datanac_prop)}</td>
+              <td>{fazendeiro.telefone_prop}</td>
+              <td>{fazendeiro.endereco_prop}</td>
+              <td>{fazendeiro.cpf_prop}</td>
               <td className="flex gap-2">
                 <button className="btn btn-ghost">
                   <FaRegEdit />
                 </button>
                 <button
                   className=" btn btn-ghost"
-                  onClick={() => removeAnimal(animal.brinco_gado)}
+                  onClick={() => removeFazendeiro(fazendeiro.cpf_prop)}
                 >
                   <FiTrash />
                 </button>

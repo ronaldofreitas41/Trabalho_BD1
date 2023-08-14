@@ -1,5 +1,4 @@
 "use client";
-
 import { Animal } from "@/types";
 import {
   PropsWithChildren,
@@ -25,21 +24,24 @@ export const useAnimal = () => {
 export const AnimalProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [animals, setAnimals] = useState<Animal[]>([]);
 
-  const addAnimal = async (animal:Animal) => {
-    const res = await fetch("http://localhost:3000/api/animals", {
+  const addAnimal = async (animal: Animal) => {
+    await fetch("http://localhost:3000/api/animals", {
       method: "POST",
       body: JSON.stringify(animal),
       headers: {
         "Content-Type": "application/json",
       },
     });
-    console.log(res)
   };
 
-  const removeAnimal = (brinco_gado: string) => {
-    console.log(brinco_gado);
-
-    //setAnimals(animals.filter((animal) => animal.brinco_gado !== brinco_gado));
+  const removeAnimal = async (brinco_gado: string) => {
+    await fetch("http://localhost:3000/api/animals", {
+      method: "DELETE",
+      body: JSON.stringify(brinco_gado),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   };
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { AnimalsList } from "../components/animals/list";
-import { AddAnimalDialog } from "../components/animals/addAnimalDialog";
+import { ListProducao } from "../components/production/list";
+import { AddProductionDialog } from "../components/production/addProductionDialog";
 
 const Breadcrumbs = () => {
   return (
@@ -10,7 +10,7 @@ const Breadcrumbs = () => {
           <a>Home</a>
         </li>
         <li>
-          <a>Animais</a>
+          <a>Produção</a>
         </li>
       </ul>
     </div>
@@ -23,9 +23,9 @@ export default function Home() {
       <Breadcrumbs />
       <div className="flex gap-4 items-center justify-between">
         <p>Gerenciamento de Animais</p>
-        <AddAnimalDialog />
+        <AddProductionDialog/>
       </div>
-      <AnimalsList />
+      <ListProducao/>
     </main>
   );
 }
