@@ -24,22 +24,26 @@ export const AddProductionDialog = () => {
   });
 
   const onSubmit = handleSubmit(async (data) => {
-    const res = await fetch(`http://localhost:3000/api/productions/${data.gado_brinco}`, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      `http://localhost:3000/api/productions/${data.gado_brinco}`,
+      {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     if (res.ok) {
       toast.success("Ordenha adicionada com sucesso!");
       window.location.reload();
     } else {
-      if(res.status === 403){
+      if (res.status === 403) {
         toast.error("Machos não produzem Leite");
+      } else {
+        toast.error("Erro ao adicionar ordenha!");
       }
-      toast.error("Erro ao adicionar ordenha!");
     }
   });
 

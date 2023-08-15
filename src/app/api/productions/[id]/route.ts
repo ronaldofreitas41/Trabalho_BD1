@@ -61,34 +61,33 @@ export async function POST(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string, brinco:string } }
 ) {
-  const alreadyExists2 = await pool
-    .query(
-      "SELECT * FROM gadoleite WHERE sexo_gado = 'F' AND brinco_gado = $1;",
-      [params.id]
-    )
-    .then((res) => res.rows);
-
-  if (alreadyExists2.length === 0) {
-    return NextResponse.json(
-      { error: "Machos não produzem Leite" },
-      { status: 403 }
-    );
-  }
   const alreadyExists = await pool
-    .query("SELECT * FROM ordenha WHERE id_ord = $1", [params.id])
-    .then((res) => res.rows);
-
+  .query("SELECT * FROM ordenha WHERE id_ord = $1", [params.id])
+  .then((res) => res.rows);
   if (alreadyExists.length === 0) {
     return NextResponse.json(
       { error: "Essa produção não Existe!" },
       { status: 404 }
-    );
-  }
-
-  const body: Producao = await request.json();
-
+      );
+    }
+    
+    const body: Producao = await request.json();
+    
+    const alreadyExists2 = await pool
+      .query(
+        "SELECT * FROM gadoleite WHERE sexo_gado = 'F' AND brinco_gado = $1;",
+        [body.gado_brinco]
+      )
+      .then((res) => res.rows);
+  
+    if (alreadyExists2.length === 0) {
+      return NextResponse.json(
+        { error: "Machos não produzem Leite" },
+        { status: 403 }
+      );
+    }
   const res = await pool.query(
     "UPDATE ordenha SET ano_ord = $2, mes_ord = $3, dia_ord = $4, gado_brinco = $5, qntleite_ord = $6 WHERE id_ord = $1",
     [

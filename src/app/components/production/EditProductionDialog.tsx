@@ -53,7 +53,11 @@ export const EditProductionDialog = ({ production }: Props) => {
       toast.success("Ordenha editado com sucesso!");
       window.location.reload();
     } else {
-      toast.error("Erro ao editar Ordenha!");
+      if (res.status === 403) {
+        toast.error("Machos não produzem Leite");
+      } else {
+        toast.error("Erro ao adicionar ordenha!");
+      }
     }
   });
 
