@@ -13,7 +13,6 @@ export async function GET() {
 export async function POST(request: Request) {
   const body: Animal = await request.json();
 
-  console.log(body);
 
   const data = await pool
     .query(

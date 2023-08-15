@@ -11,7 +11,7 @@ export const AddProductionDialog = () => {
     ano_ord: z.string().nonempty(),
     mes_ord: z.string().nonempty(),
     dia_ord: z.string().nonempty(),
-    qntLeite_ord: z.string().nonempty(),
+    qntleite_ord: z.string().nonempty(),
     gado_brinco: z.string().nonempty(),
   });
 
@@ -24,7 +24,7 @@ export const AddProductionDialog = () => {
   });
 
   const onSubmit = handleSubmit(async (data) => {
-    const res = await fetch(`http://localhost:3000/api/productions`, {
+    const res = await fetch(`http://localhost:3000/api/productions/${data.gado_brinco}`, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
@@ -33,10 +33,13 @@ export const AddProductionDialog = () => {
     });
 
     if (res.ok) {
-      toast.success("Fazenda adicionado com sucesso!");
+      toast.success("Ordenha adicionada com sucesso!");
       window.location.reload();
     } else {
-      toast.error("Erro ao adicionar fazenda!");
+      if(res.status === 403){
+        toast.error("Machos não produzem Leite");
+      }
+      toast.error("Erro ao adicionar ordenha!");
     }
   });
 
@@ -100,9 +103,9 @@ export const AddProductionDialog = () => {
               <input
                 type="text"
                 className="input w-full input-bordered"
-                {...register("qntLeite_ord")}
+                {...register("qntleite_ord")}
               />
-              {errors.qntLeite_ord && (
+              {errors.qntleite_ord && (
                 <span className="text-xs text-red-500">Campo obrigatório</span>
               )}
             </div>

@@ -18,24 +18,25 @@ export const Table = async () => {
         {/* head */}
         <thead>
           <tr>
-            <th></th>
             <th>Identificador (ID)</th>
             <th>Ano</th>
             <th>Mes</th>
             <th>Dia</th>
+            <th>Brinco</th>
             <th>Quatidade</th>
             <th>actions</th>
           </tr>
         </thead>
         <tbody>
+          
           {productions.map((production, id) => (
             <tr key={id}>
-              <td>{id + 1}</td>
               <td>{production.id_ord}</td>
-              <td>{production.dia_ord}</td>
-              <td>{production.mes_ord}</td>
               <td>{production.ano_ord}</td>
-              <td>{production.qntLeite_ord}</td>
+              <td>{production.mes_ord}</td>
+              <td>{production.dia_ord}</td>
+              <td>{production.gado_brinco}</td>
+              <td>{production.qntleite_ord}</td>
               <td className="flex gap-2">
               <EditProductionDialog production ={production}/>
               <RemoveProducton id={production.id_ord}/>

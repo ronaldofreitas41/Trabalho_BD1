@@ -17,7 +17,7 @@ export const EditProductionDialog = ({ production }: Props) => {
     ano_ord: z.string().nonempty(),
     mes_ord: z.string().nonempty(),
     dia_ord: z.string().nonempty(),
-    qntLeite_ord: z.string().nonempty(),
+    qntleite_ord: z.string().nonempty(),
     gado_brinco: z.string().nonempty(),
   });
 
@@ -33,7 +33,7 @@ export const EditProductionDialog = ({ production }: Props) => {
       gado_brinco: production.gado_brinco,
       id_ord: production.id_ord,
       mes_ord: production.mes_ord,
-      qntLeite_ord: production.qntLeite_ord,
+      qntleite_ord: production.qntleite_ord,
     },
   });
 
@@ -117,9 +117,9 @@ export const EditProductionDialog = ({ production }: Props) => {
               <input
                 type="text"
                 className="input w-full input-bordered"
-                {...register("qntLeite_ord")}
+                {...register("qntleite_ord")}
               />
-              {errors.qntLeite_ord && (
+              {errors.qntleite_ord && (
                 <span className="text-xs text-red-500">Campo obrigatório</span>
               )}
             </div>

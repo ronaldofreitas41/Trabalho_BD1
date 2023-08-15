@@ -11,7 +11,7 @@ export interface Producao {
   ano_ord: string;
   mes_ord: string;
   dia_ord: string;
-  qntLeite_ord: string;
+  qntleite_ord: string;
   gado_brinco: string;
 }
 export interface Fazenda {

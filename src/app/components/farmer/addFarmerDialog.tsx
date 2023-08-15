@@ -22,8 +22,7 @@ export const AddFarmerDialog = () => {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = handleSubmit(async (data) => {
-    console.log(data);
+  const onSubmit = handleSubmit(async (data) => {;
 
     const res = await fetch("http://localhost:3000/api/farmers", {
       method: "POST",
